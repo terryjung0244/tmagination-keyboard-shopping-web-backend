@@ -1,15 +1,16 @@
 import mongoose from 'mongoose';
 
 const keyboardSchema = new mongoose.Schema({
+  category: { type: String, required: [true] },
   keyboardId: { type: String, required: [true] },
   keyboardName: { type: String, required: [true] },
   keyboardDesc: { type: String },
-  keyboardPrice: { type: Number, required: [true] },
-  keyboardDiscountRate: { type: Number },
+  keyboardPrice: { type: String, required: [true] },
+  keyboardDiscountRate: { type: String },
   keyboardStock: { type: String },
   keyboardFeatures: {
-    color: { type: [String] },
-    switch: { type: [String] },
+    color: { type: String },
+    switch: { type: String },
   },
   keyboardImageUrl: { type: String },
   createdAt: { type: Date },
