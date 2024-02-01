@@ -1,4 +1,5 @@
-interface IKeyboard {
+export interface IKeyboard {
+  category: string;
   keyboardId: string;
   keyboardName: string;
   keyboardDesc: string;
@@ -12,5 +13,3 @@ interface IKeyboard {
   createdAt: Date;
   updatedAt: Date;
 }
-
-export { IKeyboard };
