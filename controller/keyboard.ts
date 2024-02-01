@@ -5,6 +5,7 @@ import { getUuid } from '../util/uuid';
 
 // GET ALL
 export const getAllKeyboards = async (req: Request, res: Response) => {
+  console.log(req.query);
   try {
     const result: IKeyboard[] = await keyboardSchema.find();
     res.json({ message: 'Succesfully get all keyboards', result });
@@ -58,6 +59,39 @@ export const deleteKeyboard = async (req: Request, res: Response) => {
   try {
     await keyboardSchema.findOneAndDelete({ keyboardId });
     res.json({ message: `successfully deleted (keyboardId: ${keyboardId})` });
+  } catch (err) {
+    res.json({ message: JSON.stringify(err) });
+  }
+};
+
+export const searchKeyboard = async (req: Request, res: Response) => {
+  // try {
+  //   const result: IKeyboard[] = await keyboardSchema.find();
+  //   res.json({ message: 'Succesfully get all keyboards', result });
+  // } catch (err) {
+  //   res.json({ message: JSON.stringify(err) });
+  // }
+
+  console.log(req.query, '아아아아아아아아앙');
+  const { searchKeyboardInfo } = req.query;
+
+  try {
+    // any[] 타입 모라고 해야하는지 모르겠음
+    const result: any[] = await keyboardSchema.find();
+    console.log(result);
+    const searchKeyboard = result.filter((keyboard) => {
+      if (
+        keyboard.keyboardName.includes(searchKeyboardInfo) ||
+        keyboard.keyboardDesc.includes(searchKeyboardInfo)
+      ) {
+        return keyboard;
+      }
+    });
+    console.log(searchKeyboard); //안들어감
+    res.json({
+      message: `Succesfully SearchInfo ${searchKeyboardInfo}`,
+      searchKeyboard,
+    });
   } catch (err) {
     res.json({ message: JSON.stringify(err) });
   }
