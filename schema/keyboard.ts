@@ -13,6 +13,7 @@ const keyboardSchema = new mongoose.Schema({
     switch: { type: String },
   },
   keyboardImageUrl: { type: String },
+  keyboardImagePath: { type: String },
   createdAt: { type: Date },
   updatedAt: { type: Date },
 });
