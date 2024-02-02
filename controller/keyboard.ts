@@ -24,6 +24,7 @@ export const createKeyboard = async (req: Request, res: Response) => {
     keyboardStock,
     keyboardFeatures,
     uploadedImageUrl,
+    uploadedImagePath,
   } = req.body;
 
   try {
@@ -42,6 +43,7 @@ export const createKeyboard = async (req: Request, res: Response) => {
         switch: keyboardFeatures.switch,
       },
       keyboardImageUrl: uploadedImageUrl,
+      keyboardImagePath: uploadedImagePath,
       createdAt: Date.now(),
       updatedAt: Date.now(),
     });
@@ -73,23 +75,23 @@ export const searchKeyboard = async (req: Request, res: Response) => {
   // }
 
   console.log(req.query, '아아아아아아아아앙');
-  const { searchKeyboardInfo } = req.query;
-
+  const { keyboardInfo } = req.query;
+  console.log(keyboardInfo);
   try {
     // any[] 타입 모라고 해야하는지 모르겠음
     const result: any[] = await keyboardSchema.find();
     console.log(result);
     const searchKeyboard = result.filter((keyboard) => {
       if (
-        keyboard.keyboardName.includes(searchKeyboardInfo) ||
-        keyboard.keyboardDesc.includes(searchKeyboardInfo)
+        keyboard.keyboardName.includes(keyboardInfo) ||
+        keyboard.keyboardDesc.includes(keyboardInfo)
       ) {
         return keyboard;
       }
     });
-    console.log(searchKeyboard); //안들어감
+
     res.json({
-      message: `Succesfully SearchInfo ${searchKeyboardInfo}`,
+      message: `Succesfully SearchInfo ${keyboardInfo}`,
       searchKeyboard,
     });
   } catch (err) {
