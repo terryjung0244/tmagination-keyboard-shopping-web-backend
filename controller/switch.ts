@@ -1,0 +1,80 @@
+import { Request, Response } from 'express';
+import { ISwitch } from '../model/switch';
+import switchSchema from '../schema/switch';
+import { getUuid } from '../util/uuid';
+
+// GetAllSwitches
+
+export const getAllSwitches = async (req: Request, res: Response) => {
+  try {
+    const result: ISwitch[] = await switchSchema.find();
+    res.json({ message: 'Succesfully get all switches', result });
+  } catch (err) {
+    res.json({ message: JSON.stringify(err) });
+  }
+};
+
+// CREATE
+export const createSwitch = async (req: Request, res: Response) => {
+  const {
+    switchName,
+    switchDesc,
+    switchPrice,
+    switchDiscountRate,
+    switchStock,
+    switchFeatures,
+    uploadedImageUrl,
+    uploadedImagePath,
+  } = req.body;
+
+  try {
+    const switchId = getUuid();
+    const category = 'SWITCH';
+    const newSwitch = new switchSchema({
+      category,
+      switchId,
+      switchName,
+      switchDesc,
+      switchPrice,
+      switchDiscountRate,
+      switchStock,
+      switchFeatures: {
+        color: switchFeatures.color,
+      },
+      switchImageUrl: uploadedImageUrl,
+      switchImagePath: uploadedImagePath,
+      createdAt: Date.now(),
+      updatedAt: Date.now(),
+    });
+    await newSwitch.save(); // save()는 mongodb에서 제공해주는 method중에 하나.
+    res.json({ message: 'successfully added switch' });
+  } catch (err) {
+    res.json({ message: JSON.stringify(err) });
+  }
+};
+
+// Search
+
+export const searchSwitches = async (req: Request, res: Response) => {
+  const { searchInput } = req.query;
+  console.log(searchInput);
+  try {
+    const result: ISwitch[] = await switchSchema.find();
+    console.log(result);
+
+    const filteredSwitches = result.filter((filtered) => {
+      if (
+        filtered.switchName.includes(searchInput as string) ||
+        filtered.switchDesc.includes(searchInput as string)
+      ) {
+        return filtered;
+      }
+    });
+    res.json({
+      message: `Succesfully SearchInfo ${searchInput}`,
+      filteredSwitches,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
