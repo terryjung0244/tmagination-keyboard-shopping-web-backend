@@ -57,7 +57,6 @@ export const createKeyboard = async (req: Request, res: Response) => {
 // DELETE
 export const deleteKeyboard = async (req: Request, res: Response) => {
   const { keyboardId } = req.query;
-
   try {
     await keyboardSchema.findOneAndDelete({ keyboardId });
     res.json({ message: `successfully deleted (keyboardId: ${keyboardId})` });

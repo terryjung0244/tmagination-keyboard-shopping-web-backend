@@ -7,9 +7,11 @@ export interface IKeyboard {
   keyboardDiscountRate: number;
   keyboardStock: string;
   keyboardFeatures: {
-    color: string[];
-    switch: string[];
+    color: string;
+    switch: string;
   };
+  keyboardImageUrl: string;
+  keyboardImagePath: string;
   createdAt: Date;
   updatedAt: Date;
 }

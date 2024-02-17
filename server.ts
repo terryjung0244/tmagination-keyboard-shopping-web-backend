@@ -3,6 +3,8 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 import KeyboardRouter from './route/keyboard';
+import SwitchRouter from './route/switch';
+import AllProductsRouter from './route/allProducts';
 import mongoose from 'mongoose';
 
 const main = async () => {
@@ -25,7 +27,9 @@ app.use(cors());
 app.use(express.json()); // To parse request body
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use('/api/allProducts', AllProductsRouter);
 app.use('/api/keyboard', KeyboardRouter);
+app.use('/api/switch', SwitchRouter);
 
 app.listen(PORT, () => {
   console.log(`Wow! It's connected to ${PORT}`);
