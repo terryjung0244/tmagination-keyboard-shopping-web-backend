@@ -5,7 +5,8 @@ const router = Router();
 
 router.get('/getAllSwitches', switchController.getAllSwitches);
 router.post('/createSwitch', switchController.createSwitch);
-// router.delete('/deleteSwitch', switchController.deleteSwitch);
+router.delete('/deleteSwitch', switchController.deleteSwitch);
+router.put('/updateSwitch', switchController.updateSwitch);
 router.get('/searchSwitches', switchController.searchSwitches);
 
 export default router;
