@@ -78,3 +78,33 @@ export const searchSwitches = async (req: Request, res: Response) => {
     console.log(err);
   }
 };
+
+// Delete
+
+export const deleteSwitch = async (req: Request, res: Response) => {
+  const { selectedSwitchId, selectedSwitchName } = req.query;
+  console.log(selectedSwitchId);
+  try {
+    await switchSchema.findOneAndDelete({
+      switchId: selectedSwitchId,
+    });
+    res.json({
+      message: `Successfully Deleted Switch Name : ${selectedSwitchName}`,
+    });
+  } catch (err) {
+    res.json({ message: JSON.stringify(err) });
+  }
+};
+
+export const updateSwitch = async (req: Request, res: Response) => {
+  const { switchId } = req.body;
+  try {
+    await switchSchema.findOneAndUpdate(
+      { switchId },
+      { ...req.body, updatedAt: Date.now() },
+    );
+    res.json({ message: `succesfully updated (id: ${switchId})` });
+  } catch (err) {
+    res.json({ message: JSON.stringify(err) });
+  }
+};
