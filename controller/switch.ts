@@ -32,17 +32,17 @@ export const createSwitch = async (req: Request, res: Response) => {
     const category = 'SWITCH';
     const newSwitch = new switchSchema({
       category,
-      switchId,
-      switchName,
-      switchDesc,
-      switchPrice,
-      switchDiscountRate,
-      switchStock,
-      switchFeatures: {
+      id: switchId,
+      name: switchName,
+      desc: switchDesc,
+      price: switchPrice,
+      discountRate: switchDiscountRate,
+      stock: switchStock,
+      features: {
         color: switchFeatures.color,
       },
-      switchImageUrl: uploadedImageUrl,
-      switchImagePath: uploadedImagePath,
+      imageUrl: uploadedImageUrl,
+      imagePath: uploadedImagePath,
       createdAt: Date.now(),
       updatedAt: Date.now(),
     });

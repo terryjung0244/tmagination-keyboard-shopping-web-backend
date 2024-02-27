@@ -2,18 +2,18 @@ import mongoose from 'mongoose';
 
 const keyboardSchema = new mongoose.Schema({
   category: { type: String, required: [true] },
-  keyboardId: { type: String, required: [true] },
-  keyboardName: { type: String, required: [true] },
-  keyboardDesc: { type: String },
-  keyboardPrice: { type: String, required: [true] },
-  keyboardDiscountRate: { type: String },
-  keyboardStock: { type: String },
-  keyboardFeatures: {
+  id: { type: String, required: [true] },
+  name: { type: String, required: [true] },
+  desc: { type: String },
+  price: { type: String, required: [true] },
+  discountRate: { type: String },
+  stock: { type: String },
+  features: {
     color: { type: String },
     switch: { type: String },
   },
-  keyboardImageUrl: { type: String },
-  keyboardImagePath: { type: String },
+  imageUrl: { type: String },
+  imagePath: { type: String },
   createdAt: { type: Date },
   updatedAt: { type: Date },
 });

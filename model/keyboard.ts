@@ -1,17 +1,17 @@
 export interface IKeyboard {
   category: string;
-  keyboardId: string;
-  keyboardName: string;
-  keyboardDesc: string;
-  keyboardPrice: string;
-  keyboardDiscountRate: number;
-  keyboardStock: string;
-  keyboardFeatures: {
+  createdAt: string;
+  desc: string;
+  discountRate: string;
+  features: {
     color: string;
-    switch: string;
+    switch?: string;
   };
-  keyboardImageUrl: string;
-  keyboardImagePath: string;
-  createdAt: Date;
-  updatedAt: Date;
+  id: string;
+  imagePath: string;
+  imageUrl: string;
+  name: string;
+  price: string;
+  stock: string;
+  updatedAt: string;
 }
