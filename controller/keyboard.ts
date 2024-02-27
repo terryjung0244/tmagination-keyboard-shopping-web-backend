@@ -16,6 +16,7 @@ export const getAllKeyboards = async (req: Request, res: Response) => {
 
 // CREATE
 export const createKeyboard = async (req: Request, res: Response) => {
+  console.log(req.body);
   const {
     keyboardName,
     keyboardDesc,
@@ -32,18 +33,18 @@ export const createKeyboard = async (req: Request, res: Response) => {
     const category = 'KEYBOARD';
     const newKeyboard = new keyboardSchema({
       category,
-      keyboardId,
-      keyboardName,
-      keyboardDesc,
-      keyboardPrice,
-      keyboardDiscountRate,
-      keyboardStock,
-      keyboardFeatures: {
+      id: keyboardId,
+      name: keyboardName,
+      desc: keyboardDesc,
+      price: keyboardPrice,
+      discountRate: keyboardDiscountRate,
+      stock: keyboardStock,
+      features: {
         color: keyboardFeatures.color,
         switch: keyboardFeatures.switch,
       },
-      keyboardImageUrl: uploadedImageUrl,
-      keyboardImagePath: uploadedImagePath,
+      imageUrl: uploadedImageUrl,
+      imagePath: uploadedImagePath,
       createdAt: Date.now(),
       updatedAt: Date.now(),
     });
@@ -58,7 +59,7 @@ export const createKeyboard = async (req: Request, res: Response) => {
 export const deleteKeyboard = async (req: Request, res: Response) => {
   const { keyboardId } = req.query;
   try {
-    await keyboardSchema.findOneAndDelete({ keyboardId });
+    await keyboardSchema.findOneAndDelete({ id: keyboardId });
     res.json({ message: `successfully deleted (keyboardId: ${keyboardId})` });
   } catch (err) {
     res.json({ message: JSON.stringify(err) });
@@ -78,12 +79,12 @@ export const searchKeyboard = async (req: Request, res: Response) => {
   console.log(keyboardInfo);
   try {
     // any[] 타입 모라고 해야하는지 모르겠음
-    const result: any[] = await keyboardSchema.find();
+    const result: IKeyboard[] = await keyboardSchema.find();
     console.log(result);
     const searchKeyboard = result.filter((keyboard) => {
       if (
-        keyboard.keyboardName.includes(keyboardInfo) ||
-        keyboard.keyboardDesc.includes(keyboardInfo)
+        keyboard.id.includes(keyboardInfo as string) ||
+        keyboard.desc.includes(keyboardInfo as string)
       ) {
         return keyboard;
       }
