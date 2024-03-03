@@ -66,6 +66,45 @@ export const deleteKeyboard = async (req: Request, res: Response) => {
   }
 };
 
+// UPDATE
+export const updateKeyboard = async (req: Request, res: Response) => {
+  const {
+    keyboardId,
+    keyboardName,
+    keyboardDesc,
+    keyboardPrice,
+    keyboardDiscountRate,
+    keyboardStock,
+    keyboardImageUrl,
+    keyboardImagePath,
+    keyboardFeatures,
+  } = req.body;
+  console.log(req.body);
+  try {
+    await keyboardSchema.findOneAndUpdate(
+      { id: keyboardId },
+      {
+        name: keyboardName,
+        desc: keyboardDesc,
+        price: keyboardPrice,
+        discountRate: keyboardDiscountRate,
+        stock: keyboardStock,
+        imageUrl: keyboardImageUrl,
+        imagePath: keyboardImagePath,
+        features: {
+          color: keyboardFeatures.color,
+        },
+        updatedAt: Date.now(),
+      },
+    );
+
+    res.json({ message: `succesfully updated (id: ${keyboardId})` });
+  } catch (err) {
+    res.json({ message: JSON.stringify(err) });
+  }
+};
+
+// SEARCH
 export const searchKeyboard = async (req: Request, res: Response) => {
   // try {
   //   const result: IKeyboard[] = await keyboardSchema.find();
@@ -78,9 +117,7 @@ export const searchKeyboard = async (req: Request, res: Response) => {
   const { keyboardInfo } = req.query;
   console.log(keyboardInfo);
   try {
-    // any[] 타입 모라고 해야하는지 모르겠음
     const result: IKeyboard[] = await keyboardSchema.find();
-    console.log(result);
     const searchKeyboard = result.filter((keyboard) => {
       if (
         keyboard.id.includes(keyboardInfo as string) ||
