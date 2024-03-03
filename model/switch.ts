@@ -1,16 +1,16 @@
 export interface ISwitch {
   category: string;
-  switchId: string;
-  switchName: string;
-  switchDesc: string;
-  switchPrice: string;
-  switchDiscountRate: number;
-  switchStock: string;
-  switchFeatures: {
+  id: string;
+  name: string;
+  desc: string;
+  price: string;
+  discountRate: number;
+  stock: string;
+  features: {
     color: string;
   };
-  switchImageUrl: string;
-  switchImagePath: string;
+  imageUrl: string;
+  imagePath: string;
   createdAt: Date;
   updatedAt: Date;
 }

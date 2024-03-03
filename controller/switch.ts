@@ -61,11 +61,10 @@ export const searchSwitches = async (req: Request, res: Response) => {
   try {
     const result: ISwitch[] = await switchSchema.find();
     console.log(result);
-
     const filteredSwitches = result.filter((filtered) => {
       if (
-        filtered.switchName.includes(searchInput as string) ||
-        filtered.switchDesc.includes(searchInput as string)
+        filtered.name.includes(searchInput as string) ||
+        filtered.desc.includes(searchInput as string)
       ) {
         return filtered;
       }
@@ -83,10 +82,10 @@ export const searchSwitches = async (req: Request, res: Response) => {
 
 export const deleteSwitch = async (req: Request, res: Response) => {
   const { selectedSwitchId, selectedSwitchName } = req.query;
-  console.log(selectedSwitchId);
+  console.log(selectedSwitchId, selectedSwitchName);
   try {
     await switchSchema.findOneAndDelete({
-      switchId: selectedSwitchId,
+      id: selectedSwitchId,
     });
     res.json({
       message: `Successfully Deleted Switch Name : ${selectedSwitchName}`,
@@ -97,12 +96,36 @@ export const deleteSwitch = async (req: Request, res: Response) => {
 };
 
 export const updateSwitch = async (req: Request, res: Response) => {
-  const { switchId } = req.body;
+  const {
+    switchId,
+    switchName,
+    switchDesc,
+    switchPrice,
+    switchDiscountRate,
+    switchStock,
+    switchImageUrl,
+    switchImagePath,
+    switchFeatures,
+  } = req.body;
+  console.log(req.body);
   try {
     await switchSchema.findOneAndUpdate(
-      { switchId },
-      { ...req.body, updatedAt: Date.now() },
+      { id: switchId },
+      {
+        name: switchName,
+        desc: switchDesc,
+        price: switchPrice,
+        discountRate: switchDiscountRate,
+        stock: switchStock,
+        imageUrl: switchImageUrl,
+        imagePath: switchImagePath,
+        features: {
+          color: switchFeatures.color,
+        },
+        updatedAt: Date.now(),
+      },
     );
+
     res.json({ message: `succesfully updated (id: ${switchId})` });
   } catch (err) {
     res.json({ message: JSON.stringify(err) });
