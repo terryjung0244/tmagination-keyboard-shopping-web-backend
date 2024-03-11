@@ -26,7 +26,7 @@ export const createSwitch = async (req: Request, res: Response) => {
     uploadedImageUrl,
     uploadedImagePath,
   } = req.body;
-
+  console.log(uploadedImageUrl, uploadedImagePath);
   try {
     const switchId = getUuid();
     const category = 'SWITCH';
@@ -47,7 +47,7 @@ export const createSwitch = async (req: Request, res: Response) => {
       updatedAt: Date.now(),
     });
     await newSwitch.save(); // save()는 mongodb에서 제공해주는 method중에 하나.
-    res.json({ message: 'successfully added switch' });
+    res.json({ message: 'Successfully added switch' });
   } catch (err) {
     res.json({ message: JSON.stringify(err) });
   }
@@ -61,7 +61,7 @@ export const searchSwitches = async (req: Request, res: Response) => {
   try {
     const result: ISwitch[] = await switchSchema.find();
     console.log(result);
-    const filteredSwitches = result.filter((filtered) => {
+    const filteredSwitches = result.filter((filtered: ISwitch) => {
       if (
         filtered.name.includes(searchInput as string) ||
         filtered.desc.includes(searchInput as string)
@@ -82,7 +82,6 @@ export const searchSwitches = async (req: Request, res: Response) => {
 
 export const deleteSwitch = async (req: Request, res: Response) => {
   const { selectedSwitchId, selectedSwitchName } = req.query;
-  console.log(selectedSwitchId, selectedSwitchName);
   try {
     await switchSchema.findOneAndDelete({
       id: selectedSwitchId,
@@ -95,6 +94,7 @@ export const deleteSwitch = async (req: Request, res: Response) => {
   }
 };
 
+// Update
 export const updateSwitch = async (req: Request, res: Response) => {
   const {
     switchId,
