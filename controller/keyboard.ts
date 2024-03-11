@@ -120,7 +120,7 @@ export const searchKeyboard = async (req: Request, res: Response) => {
     const result: IKeyboard[] = await keyboardSchema.find();
     const searchKeyboard = result.filter((keyboard) => {
       if (
-        keyboard.id.includes(keyboardInfo as string) ||
+        keyboard.name.includes(keyboardInfo as string) ||
         keyboard.desc.includes(keyboardInfo as string)
       ) {
         return keyboard;
