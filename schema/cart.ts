@@ -1,16 +1,17 @@
 import mongoose from 'mongoose';
 
-const keyboardSchema = new mongoose.Schema({
+const cartSchema = new mongoose.Schema({
   category: { type: String, required: [true] },
   id: { type: String, required: [true] },
   name: { type: String, required: [true] },
   desc: { type: String },
   price: { type: String, required: [true] },
+  quantity: { type: String },
   discountRate: { type: String },
   stock: { type: String },
   features: {
-    color: { type: [String] },
-    switch: { type: [String] },
+    color: { type: String },
+    switch: { type: String },
   },
   imageUrl: { type: String },
   imagePath: { type: String },
@@ -18,4 +19,4 @@ const keyboardSchema = new mongoose.Schema({
   updatedAt: { type: Date },
 });
 
-export default mongoose.model('Keyboard', keyboardSchema);
+export default mongoose.model('Keyboard', cartSchema);
