@@ -5,7 +5,6 @@ import { getUuid } from '../util/uuid';
 
 // GET ALL
 export const getAllKeyboards = async (req: Request, res: Response) => {
-  console.log(req.query);
   try {
     const result: IKeyboard[] = await keyboardSchema.find();
     res.json({ message: 'Succesfully get all keyboards', result });
@@ -16,7 +15,6 @@ export const getAllKeyboards = async (req: Request, res: Response) => {
 
 // CREATE
 export const createKeyboard = async (req: Request, res: Response) => {
-  console.log(req.body);
   const {
     keyboardName,
     keyboardDesc,
@@ -28,6 +26,7 @@ export const createKeyboard = async (req: Request, res: Response) => {
     uploadedImagePath,
   } = req.body;
 
+  console.log(keyboardFeatures);
   try {
     const keyboardId = getUuid();
     const category = 'KEYBOARD';
@@ -106,16 +105,7 @@ export const updateKeyboard = async (req: Request, res: Response) => {
 
 // SEARCH
 export const searchKeyboard = async (req: Request, res: Response) => {
-  // try {
-  //   const result: IKeyboard[] = await keyboardSchema.find();
-  //   res.json({ message: 'Succesfully get all keyboards', result });
-  // } catch (err) {
-  //   res.json({ message: JSON.stringify(err) });
-  // }
-
-  console.log(req.query, '아아아아아아아아앙');
   const { keyboardInfo } = req.query;
-  console.log(keyboardInfo);
   try {
     const result: IKeyboard[] = await keyboardSchema.find();
     const searchKeyboard = result.filter((keyboard) => {
@@ -134,4 +124,21 @@ export const searchKeyboard = async (req: Request, res: Response) => {
   } catch (err) {
     res.json({ message: JSON.stringify(err) });
   }
+};
+
+// Get Keyboard By Id
+export const getKeyboardById = async (req: Request, res: Response) => {
+  const { keyboardId } = req.query;
+  try {
+    const result: IKeyboard = await keyboardSchema.findOne({ id: keyboardId });
+
+    res.json({
+      message: `Succesfully get a keyboard`,
+      result,
+    });
+  } catch (err) {
+    res.json({ message: JSON.stringify(err) });
+  }
+  console.log(keyboardId);
+  res.json('string');
 };

@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 import KeyboardRouter from './route/keyboard';
 import SwitchRouter from './route/switch';
 import KeycapRouter from './route/keycap';
+import CartRouter from './route/cart';
 import AllProductsRouter from './route/allProducts';
 import mongoose from 'mongoose';
 
@@ -32,6 +33,7 @@ app.use('/api/allProducts', AllProductsRouter);
 app.use('/api/keyboard', KeyboardRouter);
 app.use('/api/switch', SwitchRouter);
 app.use('/api/keycap', KeycapRouter);
+app.use('/api/cart', CartRouter);
 
 app.listen(PORT, () => {
   console.log(`Wow! It's connected to ${PORT}`);
