@@ -8,6 +8,7 @@ import { IKeycap } from 'model/keycap';
 
 // GET ALL
 export const getAllProducts = async (req: Request, res: Response) => {
+  console.log(req.body);
   try {
     const result1: IKeyboard[] = await keyboardSchema.find();
 

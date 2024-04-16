@@ -5,7 +5,7 @@ export interface IKeycap {
   discountRate: string;
   features: {
     color: string;
-    switch?: string;
+    switch: string;
   };
   id: string;
   imagePath: string;
