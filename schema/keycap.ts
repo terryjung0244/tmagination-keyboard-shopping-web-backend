@@ -9,7 +9,7 @@ const keycapSchema = new mongoose.Schema({
   discountRate: { type: String },
   stock: { type: String },
   features: {
-    color: { type: String },
+    color: { type: [String] },
   },
   imageUrl: { type: String },
   imagePath: { type: String },

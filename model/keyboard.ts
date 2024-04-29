@@ -5,7 +5,7 @@ export interface IKeyboard {
   discountRate: string;
   features: {
     color: string;
-    switch?: string;
+    switch: string;
   };
   id: string;
   imagePath: string;

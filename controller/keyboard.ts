@@ -26,7 +26,6 @@ export const createKeyboard = async (req: Request, res: Response) => {
     uploadedImagePath,
   } = req.body;
 
-  console.log(keyboardFeatures);
   try {
     const keyboardId = getUuid();
     const category = 'KEYBOARD';
@@ -78,7 +77,7 @@ export const updateKeyboard = async (req: Request, res: Response) => {
     keyboardImagePath,
     keyboardFeatures,
   } = req.body;
-  console.log(req.body);
+
   try {
     await keyboardSchema.findOneAndUpdate(
       { id: keyboardId },
@@ -139,6 +138,6 @@ export const getKeyboardById = async (req: Request, res: Response) => {
   } catch (err) {
     res.json({ message: JSON.stringify(err) });
   }
-  console.log(keyboardId);
+
   res.json('string');
 };
