@@ -58,7 +58,6 @@ export const searchKeycap = async (req: Request, res: Response) => {
   const { searchInput } = req.query;
   try {
     const result: IKeycap[] = await keycapSchema.find();
-    console.log(result);
     const filteredResult = result.filter((filtered: IKeycap) => {
       if (
         filtered.name.includes(searchInput as string) ||
@@ -80,7 +79,7 @@ export const searchKeycap = async (req: Request, res: Response) => {
 
 export const deleteKeycap = async (req: Request, res: Response) => {
   const { keycapId, keycapName } = req.query;
-  console.log(keycapId, keycapName);
+
   try {
     await keycapSchema.findOneAndDelete({
       id: keycapId,
@@ -88,9 +87,7 @@ export const deleteKeycap = async (req: Request, res: Response) => {
     res.json({
       message: `Successfully Deleted Switch Name : ${keycapName}`,
     });
-  } catch (err) {
-    console.log(err);
-  }
+  } catch (err) {}
 };
 
 // Update

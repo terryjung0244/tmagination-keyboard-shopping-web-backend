@@ -26,7 +26,6 @@ export const createSwitch = async (req: Request, res: Response) => {
     uploadedImageUrl,
     uploadedImagePath,
   } = req.body;
-  console.log(uploadedImageUrl, uploadedImagePath);
   try {
     const switchId = getUuid();
     const category = 'SWITCH';
@@ -57,10 +56,8 @@ export const createSwitch = async (req: Request, res: Response) => {
 
 export const searchSwitches = async (req: Request, res: Response) => {
   const { searchInput } = req.query;
-  console.log(searchInput);
   try {
     const result: ISwitch[] = await switchSchema.find();
-    console.log(result);
     const filteredSwitches = result.filter((filtered: ISwitch) => {
       if (
         filtered.name.includes(searchInput as string) ||
@@ -73,9 +70,7 @@ export const searchSwitches = async (req: Request, res: Response) => {
       message: `Succesfully SearchInfo ${searchInput}`,
       filteredSwitches,
     });
-  } catch (err) {
-    console.log(err);
-  }
+  } catch (err) {}
 };
 
 // Delete
@@ -107,7 +102,6 @@ export const updateSwitch = async (req: Request, res: Response) => {
     switchImagePath,
     switchFeatures,
   } = req.body;
-  console.log(req.body);
   try {
     await switchSchema.findOneAndUpdate(
       { id: switchId },
