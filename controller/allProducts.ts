@@ -6,7 +6,7 @@ import { IKeyboard } from 'model/keyboard';
 import { ISwitch } from 'model/switch';
 import { IKeycap } from 'model/keycap';
 
-// GET ALL
+// Get All Products
 export const getAllProducts = async (req: Request, res: Response) => {
   try {
     const result1: IKeyboard[] = await keyboardSchema.find();
@@ -19,6 +19,30 @@ export const getAllProducts = async (req: Request, res: Response) => {
       message: 'Succesfully get all products',
       result: [...result1, ...result2, ...result3],
     });
+  } catch (err) {
+    res.json({ message: JSON.stringify(err) });
+  }
+};
+
+// Delete All Products
+// export const deleteAllProducts = async (req: Request, res: Response) => {
+//   console.log(req.query);
+//   // js
+//   const result: any = req.query.idList;
+//   const array: string[] = result.split(',');
+
+//   console.log(array);
+//   try {
+//   } catch (err) {
+//     res.json({ message: JSON.stringify(err) });
+//   }
+// };
+
+export const deleteAllProducts = async (req: Request, res: Response) => {
+  try {
+    await keyboardSchema.deleteMany({});
+    await switchSchema.deleteMany({});
+    await keycapSchema.deleteMany({});
   } catch (err) {
     res.json({ message: JSON.stringify(err) });
   }
